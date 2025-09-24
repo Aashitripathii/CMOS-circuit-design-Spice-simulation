@@ -1,9 +1,5 @@
 # CMOS-circuit-design-Spice-simulation
 
-Great question 👍 Let’s go step by step.
-
----
-
 ### 🔹 What is SPICE?
 
 **SPICE (Simulation Program with Integrated Circuit Emphasis)** is a tool used to **simulate electronic circuits** at the transistor, gate, or system level. It numerically solves circuit equations to tell us how voltages and currents behave over time.
@@ -144,13 +140,13 @@ The figure shows how a **balanced two-level clock buffer tree** is designed. Del
 
 <img width="927" height="183" alt="image" src="https://github.com/user-attachments/assets/7d51ddb5-03cb-4c68-8b86-28b9ded2a5d0" />
 
-## L2 Introduction to basic element in Circuit design – NMOS
+### L2 Introduction to basic element in Circuit design – NMOS
 
 <img width="1172" height="477" alt="image" src="https://github.com/user-attachments/assets/080a2d69-13b8-4553-875d-e07d6d2a937e" />
 
 <img width="1322" height="477" alt="image" src="https://github.com/user-attachments/assets/3eae77e5-7385-4099-a340-2c9c2efa3f84" />
 
-## L3 Strong inversion and threshold voltage
+### L3 Strong inversion and threshold voltage
 
 <img width="1357" height="542" alt="image" src="https://github.com/user-attachments/assets/77d33baa-f710-45c4-914d-c188d31f4372" />
 
@@ -205,5 +201,124 @@ Here:
 * In **Scenario 1**, the body is fixed at ground, so body effect could appear if source rises above 0 V.
 * In **Scenario 2**, body tied to source ensures $V_{SB} = 0$ always, eliminating threshold shift and avoiding diode conduction.
 
+### L4 Threshold voltage with positive substrate potential
+
+<img width="680" height="498" alt="image" src="https://github.com/user-attachments/assets/6ac59b47-c6e5-405b-9b66-50833c99e8b9" />
+
+<img width="1387" height="650" alt="image" src="https://github.com/user-attachments/assets/3ef444c7-26b4-41d7-bf7b-0742f0ef08e4" />
+
+<img width="683" height="328" alt="image" src="https://github.com/user-attachments/assets/00a4393a-8f2a-48c7-a066-718eadc72dba" />
+
+<img width="523" height="412" alt="image" src="https://github.com/user-attachments/assets/3300940a-83ce-45b9-9270-31e62d7718e9" />
+
+## NMOS resistive region and saturation region of operation
+
+### L1 Resistive region of operation with small drain-source voltage
+
+<img width="1333" height="580" alt="image" src="https://github.com/user-attachments/assets/92713634-2716-4380-9543-df89717ae975" />
+
+<img width="797" height="605" alt="image" src="https://github.com/user-attachments/assets/2bed6305-c7e3-44f0-9d36-80425b565edc" />
+
+### L2 Drift current theory
+
+<img width="1292" height="726" alt="image" src="https://github.com/user-attachments/assets/da9f1b3b-e9dd-4531-aa2f-831a59548b42" />
+
+### L3 Drain current model for linear region of operation
+
+refer EDC notes for current equation
+
+### L4 SPICE conclusion to resistive operation
+
+<img width="713" height="470" alt="image" src="https://github.com/user-attachments/assets/a484ae80-b761-46e3-8eb9-411bf01bc9b3" />
+
+<img width="537" height="180" alt="image" src="https://github.com/user-attachments/assets/ea55987b-7df1-42e4-8530-0c52303f15b9" />
+
+<img width="632" height="163" alt="image" src="https://github.com/user-attachments/assets/65cd4c8a-8aa4-4e3a-9763-19720ec1d9a6" />
+
+<img width="1303" height="517" alt="image" src="https://github.com/user-attachments/assets/6f349409-fafa-469a-8243-ab93b1a8d0e7" />
+
+<img width="496" height="126" alt="image" src="https://github.com/user-attachments/assets/18f7ab00-5c74-49ad-9603-fac03536c6a9" />
+
+### L5 Pinch-off region condition
+
+<img width="1276" height="648" alt="image" src="https://github.com/user-attachments/assets/376c91e6-3fc9-4767-9b9a-a9a3f210b93f" />
+
+<img width="410" height="142" alt="image" src="https://github.com/user-attachments/assets/cad9e704-1639-497a-8712-a5a50654c483" />
+
+### L6 Drain current model for saturation region of operation
+
+<img width="1268" height="612" alt="image" src="https://github.com/user-attachments/assets/a0102ca2-7766-4a37-878a-8ca10e3db8b6" />
+
+Perfect 👍 Let’s derive the **drain current model for an NMOS in saturation** (also called the **active region**).
+
+---
+
+### **Condition for Saturation**
+
+For an NMOS:
+
+$$
+V_{DS} \geq V_{GS} - V_T
+$$
+
+* $V_{GS}$ = Gate-to-source voltage
+* $V_{DS}$ = Drain-to-source voltage
+* $V_T$   = Threshold voltage
+
+---
+
+### **Drain Current Expression**
+
+1. **Without channel length modulation (ideal case):**
+
+$$
+I_D = \frac{1}{2}\,\mu_n C_{ox}\,\frac{W}{L}\,(V_{GS} - V_T)^2
+$$
+
+Where:
+
+* $\mu_n$ = electron mobility
+* $C_{ox} = \frac{\epsilon_{ox}}{t_{ox}}$ = gate-oxide capacitance per unit area
+* $W, L$ = channel width and length
+
+This is the **square-law model**.
+
+---
+
+2. **With body effect included (threshold shift):**
+   If source and body are not at the same potential:
+
+$$
+V_T = V_{T0} + \gamma \left(\sqrt{2\phi_F + V_{SB}} - \sqrt{2\phi_F}\right)
+$$
+
+where
+
+* $V_{T0}$ = zero-bias threshold voltage
+* $\gamma$ = body effect coefficient
+* $\phi_F$ = Fermi potential
+* $V_{SB}$ = Source-to-body bias
+
+---
+
+3. **With channel length modulation (real device):**
+   When $V_{DS}$ increases further, the effective channel shortens. This is modeled by factor $(1 + \lambda V_{DS})$:
+
+$$
+I_D = \frac{1}{2}\,\mu_n C_{ox}\,\frac{W}{L}\,(V_{GS} - V_T)^2 \,(1 + \lambda V_{DS})
+$$
+
+where
+
+* $\lambda$ = channel length modulation parameter
+* This makes the $I_D$ vs $V_{DS}$ curve in saturation **slightly increasing**, not perfectly flat.
+
+---
+
+✅ **Final Model (General Saturation Region):**
+
+$$
+I_D = \frac{1}{2}\,\mu_n C_{ox}\,\frac{W}{L}\,(V_{GS} - V_{T})^2\,(1 + \lambda V_{DS})
+$$
 
 
