@@ -321,4 +321,7 @@ $$
 I_D = \frac{1}{2}\,\mu_n C_{ox}\,\frac{W}{L}\,(V_{GS} - V_{T})^2\,(1 + \lambda V_{DS})
 $$
 
+## Introduction to SPICE
+
+### L1 Basic SPICE setup
 
