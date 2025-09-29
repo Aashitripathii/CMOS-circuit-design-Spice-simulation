@@ -407,4 +407,277 @@ anything starting with V is the voltage source.
 This is the netlist for nmos which we are trying to simulate. Now we'll write technology file.it's basically adding all the constants in technology file.
 
 ## L3 Define technology parameters
+Good question 👍 Let’s go step by step.
 
+---
+
+## 🔹 Technology Parameters (in VLSI / Semiconductor Context)
+
+Technology parameters are the **fundamental characteristics provided by a semiconductor technology node or process** that define how devices (like MOSFETs) and circuits behave.
+
+They are part of the **Process Design Kit (PDK)** and are used in **SPICE models, design rules, and simulations**.
+
+---
+
+### 🔹 Common Technology Parameters
+
+1. **Feature size (Technology node, e.g., 180 nm, 65 nm, 7 nm)**
+
+   * Defines the minimum length of MOSFET gate (channel length).
+   * Smaller nodes → higher speed, lower power, higher density.
+
+2. **Oxide thickness (Tox)**
+
+   * Thickness of the gate oxide.
+   * Affects gate capacitance, threshold voltage, leakage.
+
+3. **Threshold voltage (Vth)**
+
+   * Minimum gate voltage needed to turn MOSFET ON.
+
+4. **Mobility (μn, μp)**
+
+   * Electron and hole mobilities in the channel.
+   * Impacts current drive and speed.
+
+5. **Supply voltage (Vdd)**
+
+   * Nominal operating voltage of the technology (e.g., 1.8 V, 1.2 V).
+
+6. **Junction depth (Xj)**
+
+   * Depth of source/drain diffusion regions.
+
+7. **Channel length modulation parameter (λ)**
+
+   * Represents how current increases slightly in saturation due to finite output resistance.
+
+8. **Capacitances (Cgs, Cgd, Cox, Csb)**
+
+   * Intrinsic capacitances that affect delay, switching, and frequency response.
+
+9. **Process variations / Corners**
+
+   * TT, SS, FF, etc. (typical, slow, fast devices).
+   * Used to check yield and robustness.
+
+10. **Leakage currents (Ioff, sub-threshold slope, DIBL)**
+
+* Define standby power and short-channel effects.
+
+---
+
+### 🔹 Why they matter
+
+* Used in **SPICE models** to simulate transistors.
+* Determine **speed, power, area, and yield** of chips.
+* Critical for **device physics, circuit design, and fabrication planning**.
+
+---
+
+👉 In simple words:
+**Technology parameters describe the physical and electrical properties of a given semiconductor process. They form the “rules of the game” for circuit designers.**
+
+<img width="538" height="432" alt="image" src="https://github.com/user-attachments/assets/398bcde1-6642-4f32-afb6-a74504eedcb4" />
+Both should be same.
+<img width="1286" height="710" alt="image" src="https://github.com/user-attachments/assets/b7a72bbe-2bc3-46c3-8809-ecc91c0ab03e" />
+<img width="1265" height="717" alt="image" src="https://github.com/user-attachments/assets/d6fc5ba0-998e-4ce3-8661-88c027d8a4bd" />
+
+call the file in top level netlistas marked in below diagram.
+<img width="630" height="497" alt="image" src="https://github.com/user-attachments/assets/2e2e2304-6c96-4ffd-baa5-fee32f08349c" />
+
+<img width="1282" height="618" alt="image" src="https://github.com/user-attachments/assets/cd4c81e7-5256-45e9-8b45-5fb9bc99129f" />
+
+## L4 First SPICE simulation
+<img width="1095" height="476" alt="image" src="https://github.com/user-attachments/assets/9f107544-a774-416e-a8dd-0f0215504ca5" />
+
+Nice — I’ll walk through **every command shown in your screenshot** and explain the purpose of each file and directory so you know exactly what everything means and what to do next.
+
+---
+
+# Terminal prompt
+
+`vsduser@vsdsquadron:~$`
+
+* **vsduser** = username on the VM.
+* **vsdsquadron** = hostname of the machine.
+* **`~`** = current working directory is the user’s home directory.
+  The prompt format is `username@hostname:current_dir$`.
+
+---
+
+# Commands (step-by-step) and what they do
+
+1. **`cd`**
+
+   * With no argument: `cd` returns you to your home directory (`~`). It just ensures you are in your home folder.
+
+2. **`git clone https://github.com/kunalg123/sky130CircuitDesignWorkshop`**
+
+   * This downloads (clones) the GitHub repository at that URL into a new folder named `sky130CircuitDesignWorkshop` in your current directory.
+   * The output lines you saw mean:
+
+     * **Enumerating/Counting objects** — git is listing all files/commits in the repo.
+     * **Compressing objects / Receiving objects** — data is transferred and decompressed on your machine.
+     * **Resolving deltas** — git applies compressed changes to rebuild file history.
+   * After these messages finish, the repo is present locally.
+
+3. **`cd sky130CircuitDesignWorkshop/design/`**
+
+   * Change directory into the `design` folder inside the cloned repo. This folder contains the SPICE exercises and a local sky130 PDK folder used in the workshop.
+
+4. **`ls`** (listing of files you saw)
+
+   * The output (sample names visible) includes several `.spice` files and a directory `sky130_fd_pr`. Example file names from the screenshot:
+
+     * `day1_nfet_idvds_L2_W5.spice`
+     * `day2_nfet_idvgs_L015_W039.spice`
+     * `day3_inv_tran_Wp084_Wn036.spice`
+     * `day3_inv_vtc_Wp084_Wn036.spice`
+     * `day4_inv_noisemargin_wp1_wn036.spice`
+     * `day5_inv_devicevariation_wp7_wn042.spice`
+     * `day5_inv_supplyvariation_Wp1_Wn036.spice`
+     * `sky130_fd_pr/` (directory)
+
+   **What these names mean (typical convention):**
+
+   * `dayX_...` — exercises for day X of the workshop.
+   * `nfet_idvds` — NFET drain current vs drain-source voltage characterization (`I_d` vs `V_ds`).
+   * `nfet_idvgs` — NFET drain current vs gate-source voltage (`I_d` vs `V_gs`).
+   * `inv_vtc` — inverter Voltage Transfer Characteristic (VTC) sweep.
+   * `inv_tran` — transient switching simulation of an inverter (time-domain).
+   * `noisemargin`, `devicevariation`, `supplyvariation` — simulations that test robustness (noise margins, process/device variation, supply voltage variation).
+   * The `L` and `W` or `Wp/Wn` parts indicate transistor **length** and **width** values used in the netlist (units depend on the netlist — check the file to see whether L=2 means 2 µm or 2 units).
+
+5. **`cd sky130_fd_pr/`**
+
+   * You entered the folder named `sky130_fd_pr`. This is the PDK/library folder (SkyWater 130nm frontend/process resources) included for the workshop.
+
+6. **`ls` inside `sky130_fd_pr`** -> output:
+
+   * `cells`
+   * `LICENSE`
+   * `models`
+   * `README.rst`
+
+   **What these are:**
+
+   * **`cells/`** — subcircuits or subckt files for standard cells or device-level subcircuits (e.g., NFET/PFET subckt definitions used in the `.spice` netlists).
+   * **`models/`** — SPICE model files (transistor model cards, process corners, temperature tables). These are the `.model` or `.lib` files the netlists `.include` to get transistor electrical behavior.
+   * **`LICENSE`** — legal/license text for the repo or PDK files (read this to know allowed usage).
+   * **`README.rst`** — human-readable instructions for how to run the exercises, prerequisites, or notes for the PDK.
+
+7. **`cd cells/`** then **`ls`** -> shows:
+
+   * `nfet_01v8`
+   * `pfet_01v8`
+
+   **Meaning:**
+
+   * These are files (or directories) containing the **NFET and PFET device/subckt definitions** for a 1.8 V device flavor. They usually contain `.subckt` definitions or netlists that the dayX `.spice` files call via `.include` so the netlists use the correct transistor models and device geometry.
+
+---
+
+# How to inspect these files (useful commands)
+
+* `less README.rst` — read instructions for the repo/workshop.
+* `head -n 40 day1_nfet_idvds_L2_W5.spice` — view first 40 lines of the netlist (quick peek).
+* `grep -i ".include" -n *.spice` — find which model / subckt files the netlists include.
+* `cat sky130_fd_pr/models/sky130.lib.spice | head -n 30` — view the model library header (example; actual filename may vary).
+* `file nfet_01v8` or `ls -l nfet_01v8` — check whether `nfet_01v8` is a file or directory and view permissions.
+
+---
+
+# How to run a SPICE exercise (basic workflow)
+
+1. **Install ngspice** (if not present):
+
+   ```bash
+   sudo apt update
+   sudo apt install ngspice
+   ```
+
+2. **Run interactively**:
+
+   ```bash
+   ngspice day1_nfet_idvds_L2_W5.spice
+   ```
+
+   * ngspice will parse the netlist and run whatever `.dc`, `.tran`, or `.op` directives exist.
+   * Inside ngspice you can `plot` or `display` node voltages / currents (for example `plot v(out)` or `plot i(vdd)` depending on netlist node names). Many provided netlists include `.measure` lines that print numeric results to stdout.
+
+3. **Run in batch (non-interactive)**:
+
+   ```bash
+   ngspice -b day3_inv_tran_Wp084_Wn036.spice -o day3_out.log
+   ```
+
+   * `-b` runs ngspice in batch mode and `-o` writes a log file.
+
+4. **View waveforms** (if the netlist writes a raw/VCD file):
+
+   * Install GTKWave: `sudo apt install gtkwave`
+   * Open the raw file: `gtkwave filename.raw`
+
+> **Note:** The netlists usually `.include` model files (from `sky130_fd_pr/models/`) and `.include` subckt files (from `sky130_fd_pr/cells/`). If ngspice cannot find included files, adjust relative paths or run from the `design` directory.
+
+---
+
+# Typical contents inside a `.spice` file (what to expect)
+
+Open any of the `.spice` files and you will typically see:
+
+* `.title` — netlist title
+* `.include ../sky130_fd_pr/models/sky130.lib.spice` — include model library
+* Component lines: `M1 drain gate source bulk nfet_01v8 W=... L=...` or `.subckt inv ...`
+* Voltage sources: `Vdd vdd 0 DC 1.8` or `Vg gate 0 PULSE(...)` for transient
+* Analysis directives: `.dc Vd 0 1.8 0.01` or `.tran 1n 100n` or `.op`
+* `.measure` statements to extract parameters (like threshold, Idsat)
+* `.end`
+
+Open the file to confirm units (µm vs. nm) and how L/W are defined.
+
+---
+
+# Quick interpretation of the day files (practical summary)
+
+* **Day 1:** NFET Id vs Vds sweep — device output characteristics.
+* **Day 2:** NFET Id vs Vgs sweep — transfer characteristics (threshold extraction).
+* **Day 3:** CMOS inverter transient (switching) and VTC — measure delay and switching point.
+* **Day 4:** Noise-margin evaluation — compute VIH, VIL, noise margins.
+* **Day 5:** Robustness tests — device variation sweeps (different W/L), supply variation (Vdd changes) — used to see effect on performance/yield.
+
+---
+
+# Next steps I recommend (practical)
+
+1. Open `README.rst` first — it usually tells required tools, order of exercises and commands to run.
+
+   ```bash
+   less README.rst
+   ```
+2. Check which files are included by netlists:
+
+   ```bash
+   grep -n ".include" -R .
+   ```
+3. Run one simple exercise to confirm the setup:
+
+   ```bash
+   ngspice day1_nfet_idvds_L2_W5.spice
+   ```
+4. If you want waveform GUI: ensure `gtkwave` is installed and check if the netlist produces `.raw` files, then open them.
+
+---
+
+<img width="1557" height="203" alt="image" src="https://github.com/user-attachments/assets/fca4cce6-95ab-4341-b596-60e192346c08" />
+these are all the library files of nfet.
+<img width="1018" height="105" alt="image" src="https://github.com/user-attachments/assets/4305cfed-aaa2-46de-8e44-0a91b7d6c4d2" />
+it contains all the model parameters.
+<img width="1055" height="857" alt="image" src="https://github.com/user-attachments/assets/8f1015f4-bd3b-4557-9e9f-4183762e4535" />
+now corner spicify
+<img width="346" height="117" alt="image" src="https://github.com/user-attachments/assets/c2919a88-92d8-4250-96e6-eaa5b66d7f26" />
+<img width="1852" height="986" alt="image" src="https://github.com/user-attachments/assets/6a19841c-dfa6-4a7f-9671-f390b3e5a03c" />
+<img width="1856" height="986" alt="image" src="https://github.com/user-attachments/assets/e65647a7-9c6a-450d-a188-21518dc22e2e" />
+
+it contains different W and L values. 
