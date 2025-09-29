@@ -681,3 +681,27 @@ now corner spicify
 <img width="1856" height="986" alt="image" src="https://github.com/user-attachments/assets/e65647a7-9c6a-450d-a188-21518dc22e2e" />
 
 it contains different W and L values. 
+<img width="1573" height="483" alt="image" src="https://github.com/user-attachments/assets/dab146ff-720f-415d-9e75-0a083b027d85" />
+
+<img width="1847" height="996" alt="image" src="https://github.com/user-attachments/assets/892d7319-372e-4d31-9dc6-9668f904ea85" />
+
+it contains all the lib files for nfet and pfet at different corners. 
+
+<img width="1200" height="950" alt="image" src="https://github.com/user-attachments/assets/2a2143ce-1cc5-48a1-9671-d4d2c1b8443f" />
+tt means typical corner
+sky......is the model name. syntax is drain gate source and bulk. source and bilk is 0 0. drain is Vdd. selected w and L value. supply voltage is 1.8V.
+H  ere we are sweeping Vds from 0 to 1.8 with step of 0.1. and Vgs as 0.2. So here we are doing Id vs Vds curve. now we'll run it. To run this type ngspice day1....
+<img width="1456" height="220" alt="image" src="https://github.com/user-attachments/assets/98d8b0b9-b979-41f1-9275-0c7f1b0b5be2" />
+<img width="1492" height="531" alt="image" src="https://github.com/user-attachments/assets/8ea90efd-ba08-4827-a0a1-c84c5f26f5e9" />
+we have installed ngspice.
+<img width="1860" height="1002" alt="image" src="https://github.com/user-attachments/assets/26871306-7323-4f73-8349-1d424b8f9eb6" />
+<img width="1295" height="972" alt="image" src="https://github.com/user-attachments/assets/ed49e029-10a9-4616-b34b-23168c83efbe" />
+to plot the graph give command as shown above.
+<img width="482" height="427" alt="image" src="https://github.com/user-attachments/assets/ebb950a2-ee4a-42d8-b3cb-c0e44e406c90" />
+<img width="1850" height="988" alt="image" src="https://github.com/user-attachments/assets/770933a5-3a1e-4577-990e-9b7300ff1ea3" />
+this is Id Vs Vds at different Vgs values. 
+It shows linear behaviour.
+<img width="1137" height="1022" alt="image" src="https://github.com/user-attachments/assets/98a569c6-4591-4b0f-ad13-cb4ecc69ba22" />
+to get the coordinate at specific point click on graph left click. 
+
+## L5 SPICE Lab with sky130 models
