@@ -1057,3 +1057,44 @@ We now get the VTC characteristics
 
 We will now see the transient analysis:
 For that we will go inside the tansient SPICE file for day3
+<img width="1858" height="1026" alt="image" src="https://github.com/user-attachments/assets/c7d6457d-0eec-40e8-9b6f-88ba424f3b34" />
+<img width="1753" height="870" alt="image" src="https://github.com/user-attachments/assets/8ec0f6b6-464c-4b46-80b0-4596efbcd4ac" />
+So for rise delay and fall delay, we need to consider 50% of output curve i.e. at 0.9V; out-in.
+<img width="376" height="80" alt="image" src="https://github.com/user-attachments/assets/605b452f-24ca-4022-8f48-53d02ec31ba2" />
+Therefore Rise delay = 2.482ns-2.15ns = 0.333ns
+
+For fall delay, consider while falling.
+<img width="363" height="85" alt="image" src="https://github.com/user-attachments/assets/f73ef202-c378-47e1-80a5-9126732a1612" />
+Therefore **Fall Delay = 4.334ns-4.050ns = 0.285ns**
+
+## Static behavior evaluation – CMOS inverter robustness – Switching Threshold
+
+## L1 Switching Threshold, Vm
+
+Let us compare the two different CMOS inverters with different W/L ratios of PMOS and NMOS, we can see that the shape of the VTC is same in both the cases only the switching threshold is different. This shows the robustnesss of CMOS inverter.
+<img width="1245" height="582" alt="image" src="https://github.com/user-attachments/assets/0f898db3-73ff-4c7a-844d-c2241a5b2d86" />
+<img width="1203" height="637" alt="image" src="https://github.com/user-attachments/assets/4bbfee2a-eee5-40f2-b74e-08d96e5dbcae" />
+<img width="1220" height="670" alt="image" src="https://github.com/user-attachments/assets/5579fc1b-ab32-48a1-965f-917c89f791c2" />
+
+## L2 Analytical expression of Vm as a function of (W/L)p and (W/L)n
+
+We will now calculate the value of Vm w.r.t the NMOS and PMOS width and length.
+<img width="1167" height="715" alt="image" src="https://github.com/user-attachments/assets/4fde64d1-4d9b-47fb-a126-4496d2d35dd1" />
+<img width="907" height="482" alt="image" src="https://github.com/user-attachments/assets/be595e97-bdf2-4be0-85cd-f7e478bb936b" />
+## L3 Analytical expression of (W/L)p and (W/L)n as a function of Vm
+Now here we will calculate the value of W/L for PMOS and NMOS when Vm is given.
+We have to move in reverse fashion, as we need to calculate W/L ratio of PMOS and NMOS such that Switching threshold is exatly half of the power supply Vdd = 2.5V, therefore required Vm = 1.25V.
+We will start from the current equation itself i.e. Idsn = -Idsp
+<img width="1002" height="387" alt="image" src="https://github.com/user-attachments/assets/cadaf558-d6a5-4470-9965-ee9741ac4743" />
+Expanding Kp and Kn (Gain factor)
+
+<img width="627" height="107" alt="image" src="https://github.com/user-attachments/assets/08ca8890-234b-4741-9a4b-decf35dd5784" />
+
+<img width="612" height="106" alt="image" src="https://github.com/user-attachments/assets/ab6d338b-f712-4ab2-8944-d50cb29d9290" />
+
+Now here on the RHS all are constants and we will get the values from the model files except Vm, If we know Vm then we can get the W/L ratios.
+So now this will allow us to find out for what value of W/L ratio of PMOS will be greater than NMOS based on values of Vm.
+We will now see the behaviour of CMOS for below difference in W/L ratios of PMOS and NMOS.
+
+<img width="347" height="285" alt="image" src="https://github.com/user-attachments/assets/7c95043f-08be-4cff-8d62-656e365ba9b1" />
+
