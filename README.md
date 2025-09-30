@@ -737,3 +737,98 @@ FOR short channel effect.
 <img width="1067" height="660" alt="image" src="https://github.com/user-attachments/assets/61a2beb5-9194-4566-9460-19c0033e045d" />
 
 <img width="958" height="560" alt="image" src="https://github.com/user-attachments/assets/c57fde23-075f-43bc-b25c-2094ad8c7ce1" />
+
+## L5 Labs Sky130 Id-Vgs
+
+<img width="1218" height="181" alt="image" src="https://github.com/user-attachments/assets/714e7eb2-226a-4cc0-8b69-4ff9d7d9d522" />
+<img width="1210" height="933" alt="image" src="https://github.com/user-attachments/assets/e38f4c26-bf7c-42e0-8b42-210bfe779c31" />
+doing dc simulation .dc
+now run this. type ngspice file name.
+<img width="1593" height="361" alt="image" src="https://github.com/user-attachments/assets/1de6f38c-b0fe-4dc9-9a0f-f90c51f26682" />
+<img width="1593" height="830" alt="image" src="https://github.com/user-attachments/assets/c96501c5-7fc0-4bee-8cdb-1948864134ad" />
+<img width="1846" height="1020" alt="image" src="https://github.com/user-attachments/assets/156834ee-477c-4136-84f5-cba015e8db11" />
+<img width="1852" height="962" alt="image" src="https://github.com/user-attachments/assets/316b2cf7-16b3-403b-a807-f6315f870855" />
+click on the graph we'll know the coordinates.
+<img width="1850" height="260" alt="image" src="https://github.com/user-attachments/assets/7a361afe-cda7-439f-94e0-9e3ae5b750d0" />
+<img width="1133" height="418" alt="image" src="https://github.com/user-attachments/assets/a38b9592-3902-431a-9071-7a82dc067a74" />
+<img width="1780" height="907" alt="image" src="https://github.com/user-attachments/assets/0b57e7ee-81e2-407f-a0f5-c0a6b22dcf11" />
+The above plot is Id vs Vds for different values of Vgs. We can see for lower values of Vgs it is showing quadratic behaviour and for higher values of Vgs it is showing Linear behaviour. Now if want to see the peak current for Vgs=1.8V, just 'press' left click on mouse at Vgs=1.8V.
+Now let us observe Id vs Vgs
+<img width="1245" height="292" alt="image" src="https://github.com/user-attachments/assets/6228086f-1198-446d-85e1-e2a4b4d43b17" />
+<img width="665" height="120" alt="image" src="https://github.com/user-attachments/assets/41a536c1-dbda-400d-8085-bbfb35cf0a18" />
+<img width="1810" height="1051" alt="image" src="https://github.com/user-attachments/assets/9bf78c3f-8c3f-482c-b461-a90041885da0" />
+In the above graph we can see that, due to short channel effect we are seeing a linear behaviour for higher Vgs and Vds being constant.
+
+## L6 Labs Sky130 Vt
+
+Now we will calculate Threshold Voltage Vt for Id vs Vgs curve.
+<img width="407" height="373" alt="image" src="https://github.com/user-attachments/assets/6bcbea19-1ba2-4d5d-8341-8619bc36979c" />
+
+In the curve we can see that Vt is the value when current increases drastically for small change in Vgs. To calculate we will draw tangent on the curve and see where it touches.
+
+# CMOS voltage transfer characteristics (VTC)
+
+## L1 MOSFET as a switch
+We will now look at the device parameters from the switch point of view.
+<img width="1003" height="577" alt="image" src="https://github.com/user-attachments/assets/153f63cd-cf2d-4d28-b42b-eadf40fc04c4" />
+The above shows MOSFET as a switch: * When |Vgs|Vt, device is ON and it acts as closed switch
+<img width="1015" height="580" alt="image" src="https://github.com/user-attachments/assets/bb6bf43b-5d2e-4523-84d5-a1f292da595a" />
+
+## L2 Introduction to standard MOS voltage current parameters
+
+<img width="1247" height="663" alt="image" src="https://github.com/user-attachments/assets/3cbbccb5-7d06-47df-ac75-f5e7386b5e59" />
+
+<img width="693" height="485" alt="image" src="https://github.com/user-attachments/assets/c349d7cf-5734-4540-9192-085ab8e80fae" />
+
+<img width="1307" height="727" alt="image" src="https://github.com/user-attachments/assets/91e8b380-6b9b-4bf9-91dc-03cd81b0a7d0" />
+
+## L3 PMOS/NMOS drain current v/s drain voltage
+
+<img width="1327" height="721" alt="image" src="https://github.com/user-attachments/assets/ab4ed8ec-8d81-4e72-a37e-bcd26a892cd7" />
+<img width="1436" height="736" alt="image" src="https://github.com/user-attachments/assets/952725c0-0ede-42c7-9fc5-b749b9df56ed" />
+
+## L4 Step1 – Convert PMOS gate-source-voltage to Vin
+
+We have seen various internal voltages, but actually in terms of user's perspective we can't see the internal voltages and only see the external Vin and Vout. From these we calculate the VTC and eventually we get to know the delay.
+
+Now we will see the steps to obtain Voltage Transfer Characteristics(VTC) for static CMOS inverter: Assumption: Let us assume that it is a long channel device with Vdd=2V
+
+We will fix the Vgs values as shown below image
+
+We know that Vgsp= Vin-Vdd, So we get the above values.So we get Vin = Vgsp+Vdd, we are trying to convert all the voltages as function of Vin and Vout.
+
+We will try to plot the graph of PMOS in terms of Idsn, the plot will be as shown below. We can see that the corresponding Vin value of Vgsp is being plotted as shown in the above table.
+<img width="1366" height="752" alt="image" src="https://github.com/user-attachments/assets/48754897-c944-4a7a-bd74-6b5fb94b94d3" />
+
+<img width="1340" height="730" alt="image" src="https://github.com/user-attachments/assets/7bd3e422-71bf-41d7-9ddb-189d99a4c8be" />
+
+## L5 Step2 & Step3- Convert PMOS and NMOS drain-source-voltage to Vout
+
+Now we be converting the Vdsp and function of output voltage Vin. We know Vdsp = Vout-Vdd.
+Let us convert Vdsp into Vout. So to get Vout there is a shift of Vdd towards left hand side.
+<img width="1033" height="302" alt="image" src="https://github.com/user-attachments/assets/d6d32731-b660-405d-a605-d918d1cf78af" />
+We can see that whenever Vout=2V that means Vdsp=0V and Vdd=2V (given), then The current is zero and capacitor at the output is discharged. This is true only when PMOS is in combination with NMOS and forms a CMOS inverter.
+Let us take another example, when Vout=0V, that means -Vdsp=2V and Vdd=2V, so at every gate voltage of Vin we will see a finite current whenever Vout=0V. As Vout=0V, the capacitor is completely discharged and we need to charge that, so that is the charging current required. So, here we get the load curve for PMOS
+<img width="582" height="487" alt="image" src="https://github.com/user-attachments/assets/6d9fb4c5-b099-4f38-b85d-7ab590f536ef" />
+Now we will try to get the "load curve" for NMOS transistor from this equations
+It is actually simple as Vgsn = Vin and Vdsn = Vout, directly we can get the graphs.
+
+<img width="420" height="220" alt="image" src="https://github.com/user-attachments/assets/025467f5-7e60-4f21-9675-56c9f26e50d0" />
+<img width="498" height="352" alt="image" src="https://github.com/user-attachments/assets/e6351926-7f0a-4150-bbe0-a55a07ce8e21" />
+<img width="1025" height="435" alt="image" src="https://github.com/user-attachments/assets/5422e024-8790-478e-b450-2177b59159b8" />
+
+## L6 Step4- Merge PMOS-NMOS load curves and plot VTC
+
+We will now merge the above two curves and obtain the voltage transfer characteristics(VTC) for CMOS inverter.
+<img width="1352" height="431" alt="image" src="https://github.com/user-attachments/assets/721af904-5557-4637-98b6-1538226096dd" />
+<img width="667" height="442" alt="image" src="https://github.com/user-attachments/assets/e5c91e60-33d1-49c7-8d5c-cf90d6325ea7" />
+
+So the range of Vin and Vout is 0V-2V.
+
+When Vin = 0V, Vout = 2V; NMOS is Cut Off and PMOS is in Linear region
+When Vin = 0.5V, 1.5V<Vout<2V; NMOS is in Saturation region and PMOS is in Linear region.
+When Vin = 1V, 0.5V<Vout<1.5V; NMOS and PMOS are in Saturation region.
+When Vin = 1.5V, 0<Vout<0.5V; NMOS is Linear region and PMOS is in Saturation region.
+When Vin = 2V, Vout = 0V; NMOS is in linear region and PMOS is Cut Off
+
+<img width="987" height="526" alt="image" src="https://github.com/user-attachments/assets/b9be4f8c-4223-4b2e-87a5-ba2f5afe8ba4" />
