@@ -1133,3 +1133,187 @@ This is a typical characteristic of Clock Inverter/buffer where we want the rise
 # Day 4 - CMOS Noise Margin robustness evaluation
 ## Static behavior evaluation – CMOS inverter robustness – Noise margin
 ### L1 Introduction to noise margin
+
+<img width="826" height="560" alt="image" src="https://github.com/user-attachments/assets/e6b9d574-4156-41e0-80db-f34f7aaa4ce1" />
+
+Great question 👍 Let’s go step by step on **Noise Margin** in digital circuits, especially CMOS inverters.
+
+---
+
+## 🔹 What is Noise Margin?
+
+Noise margin tells us **how much unwanted noise a logic circuit can tolerate** at its input or output without causing an error.
+
+* Digital signals are supposed to be either **logic 0** (LOW) or **logic 1** (HIGH).
+* In real life, due to **noise, crosstalk, supply variation, leakage, etc.**, voltages may not be perfectly 0V or Vdd.
+* **Noise margin** defines the “safety cushion” between valid logic levels and invalid (uncertain) levels.
+
+---
+
+## 🔹 Key Voltage Levels
+
+From the **Voltage Transfer Characteristic (VTC)** of an inverter (output vs. input voltage), we define:
+
+1. **VOH** – Minimum output voltage recognized as HIGH.
+2. **VOL** – Maximum output voltage recognized as LOW.
+3. **VIH** – Minimum input voltage recognized as HIGH.
+4. **VIL** – Maximum input voltage recognized as LOW.
+
+Between `VIL` and `VIH`, the input is in an **undefined region** → not reliably HIGH or LOW.
+
+---
+
+## 🔹 Noise Margins
+
+Two important metrics:
+
+1. **NMH (Noise Margin High):**
+   [
+   NMH = VOH - VIH
+   ]
+   → Maximum noise voltage that can be tolerated on a HIGH signal before it’s misread as LOW.
+
+2. **NML (Noise Margin Low):**
+   [
+   NML = VIL - VOL
+   ]
+   → Maximum noise voltage that can be tolerated on a LOW signal before it’s misread as HIGH.
+
+---
+
+## 🔹 Graphical View
+
+On the CMOS inverter VTC curve:
+
+* Draw the line `Vout = Vin` (45° line).
+* Find the points where slope = –1 → defines **VIL** and **VIH**.
+* From these, you compute NMH and NML.
+
+---
+
+## 🔹 Example (CMOS Inverter @ Vdd = 2.5V)
+
+* VOH ≈ 2.5 V
+* VOL ≈ 0 V
+* VIL ≈ 0.8 V
+* VIH ≈ 1.7 V
+
+So:
+
+* NML = VIL – VOL = 0.8 – 0 = **0.8 V**
+* NMH = VOH – VIH = 2.5 – 1.7 = **0.8 V**
+
+👉 This means the circuit can tolerate **up to 0.8 V of noise** without error.
+
+---
+
+## 🔹 Why Important?
+
+* **Higher noise margin = more robust design.**
+* Low noise margin → circuit easily fails due to small noise or supply variations.
+* CMOS inverters typically have **good noise margins** compared to NMOS-only or PMOS-only logic.
+
+---
+
+✅ **Summary**:
+Noise margin = tolerance of logic levels against noise. It’s calculated as:
+
+* **NMH = VOH – VIH**
+* **NML = VIL – VOL**
+  It ensures that small disturbances don’t flip logic states incorrectly.
+  
+## L2 Noise margin voltage parameters
+refer prev lec notes.
+<img width="777" height="542" alt="image" src="https://github.com/user-attachments/assets/c91d616e-56e3-482b-9aa3-a10c307bffe2" />
+
+## L3 Noise margin equation and summary
+<img width="835" height="567" alt="image" src="https://github.com/user-attachments/assets/59972ea4-8056-45f1-97c3-52a9f930ac67" />
+
+<img width="803" height="526" alt="image" src="https://github.com/user-attachments/assets/0a263d7e-1a62-443f-8a57-b93068d4ca63" />
+
+## L4 Noise margin variation with respect to PMOS width
+Nice one 👍 Let’s connect **noise margin** with **PMOS width variation** in a CMOS inverter.
+
+---
+
+## 🔹 CMOS Inverter Basics
+
+* In a CMOS inverter, **NMOS pulls output LOW** and **PMOS pulls output HIGH**.
+* The **relative strengths (W/L ratio)** of NMOS and PMOS determine the **switching threshold (VM)** of the inverter.
+
+[
+V_M \approx \frac{V_{thn} + \sqrt{\frac{\mu_p W_p}{\mu_n W_n}} (V_{DD} - |V_{thp}|)}{1 + \sqrt{\frac{\mu_p W_p}{\mu_n W_n}}}
+]
+
+where:
+
+* (W_p, W_n) = widths of PMOS and NMOS
+* (\mu_p, \mu_n) = carrier mobilities
+* (V_{thp}, V_{thn}) = threshold voltages
+
+---
+
+## 🔹 Effect of Increasing PMOS Width (Wp)
+
+1. **PMOS gets stronger** (more current-driving ability).
+2. Switching point (V_M) shifts **to the right** (towards VDD).
+
+   * Because PMOS pulls up more strongly.
+3. **Noise Margins change:**
+
+   * **NMH (Noise Margin High = VOH – VIH)** → **increases**, since VOH stays ≈ VDD and VIH shifts upward.
+   * **NML (Noise Margin Low = VIL – VOL)** → **decreases**, since VIL shifts upward.
+
+---
+
+## 🔹 Effect of Decreasing PMOS Width (Wp)
+
+1. **PMOS gets weaker** compared to NMOS.
+2. Switching point (V_M) shifts **to the left** (towards 0).
+3. **Noise Margins change:**
+
+   * **NMH decreases** (HIGH level noise tolerance reduces).
+   * **NML increases** (LOW level noise tolerance improves).
+
+---
+
+## 🔹 Trade-off
+
+* Ideally, designers aim for **symmetric noise margins (NMH ≈ NML)**.
+* This happens when **PMOS strength ≈ NMOS strength**.
+* Since **hole mobility (µp)** is ~2–3× lower than electron mobility (µn), PMOS width is usually made **2–3× wider** than NMOS to balance.
+
+---
+
+✅ **Summary:**
+
+* **Increase PMOS width → NMH ↑, NML ↓**.
+* **Decrease PMOS width → NMH ↓, NML ↑**.
+* Optimum ratio ( W_p/W_n ) is chosen so that both margins are roughly equal.
+
+<img width="1250" height="686" alt="image" src="https://github.com/user-attachments/assets/cfb8afbe-b6d4-4f88-8c12-9c8197971342" />
+
+<img width="1287" height="705" alt="image" src="https://github.com/user-attachments/assets/d4d5348d-e187-4d26-9883-546f549af86f" />
+
+<img width="743" height="232" alt="image" src="https://github.com/user-attachments/assets/75fea204-1871-4879-ade9-594d028b58d8" />
+<img width="807" height="583" alt="image" src="https://github.com/user-attachments/assets/143b9eba-5687-4ebf-8588-0d6616c61008" />
+
+<img width="1095" height="613" alt="image" src="https://github.com/user-attachments/assets/016bcf36-4962-4064-b717-d87570119968" />
+
+## L5 Sky130 Noise margin labs
+
+To plot noise margin we need to look at vtc curve.
+<img width="1325" height="922" alt="image" src="https://github.com/user-attachments/assets/71599c8c-9ebf-4e9b-8618-ff6dbe9e1b57" />
+<img width="1626" height="368" alt="image" src="https://github.com/user-attachments/assets/9756c8a0-8b05-4ce7-ba94-7c9967522d59" />
+<img width="678" height="161" alt="image" src="https://github.com/user-attachments/assets/ad45b20d-fa17-460b-b241-f13cd77f2405" />
+<img width="1728" height="857" alt="image" src="https://github.com/user-attachments/assets/91bcc614-0fee-4b2a-a201-75a965cca2d6" />
+To plot noise margin we have to consider slope where it is -1.
+<img width="272" height="95" alt="image" src="https://github.com/user-attachments/assets/739ce5ec-7c92-4c3f-8ff8-612f6f412b5a" />
+x= Vil, Y= Voh
+
+<img width="263" height="37" alt="image" src="https://github.com/user-attachments/assets/9ff1d068-3d16-4220-8583-01d8396320d4" />
+
+# Day 5 - CMOS power supply and device variation robustness evaluation
+## Static behavior evaluation – CMOS inverter robustness – Power supply variation
+
+### L1 Smart SPICE simulation for power supply variations
