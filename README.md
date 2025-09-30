@@ -838,3 +838,222 @@ When Vin = 2V, Vout = 0V; NMOS is in linear region and PMOS is Cut Off
 ## Voltage transfer characteristics – SPICE simulations
 ### L1 SPICE deck creation for CMOS inverter
 
+We will now simulate the VTC. For that we need to create the SPICE deck. It is a connectivity information (Netlist). As there is information about substrate, the circuit is as shown below.Here M1 is PMOS and M2 is NMOS.
+Great question 👍 Let me explain clearly:
+
+---
+
+### 🔹 What is a **SPICE Deck**?
+
+A **SPICE deck** is basically the **input file** you give to the SPICE simulator (like Ngspice, HSPICE, etc.).
+
+It is a **text file** written in SPICE syntax that describes:
+
+1. **Circuit netlist** → components (transistors, resistors, capacitors, voltage sources, etc.) and how they are connected.
+2. **Models** → device characteristics (e.g., NMOS, PMOS parameters from a technology file).
+3. **Simulation commands** → what analysis you want to perform (DC, AC, Transient, etc.).
+4. **Output instructions** → what voltages/currents to plot or save.
+
+---
+
+### 🔹 Structure of a SPICE Deck
+
+Typical SPICE deck looks like this:
+
+```spice
+* CMOS Inverter Example (Comment line starts with *)
+Vdd vdd 0 1.8         ; Power supply = 1.8V
+Vin in 0 PULSE(0 1.8 0n 10p 10p 1n 2n)   ; Input pulse
+
+M1 out in vdd vdd pmos L=0.15u W=0.5u   ; PMOS transistor
+M2 out in 0   0   nmos L=0.15u W=0.25u  ; NMOS transistor
+
+Cload out 0 5f      ; Load capacitor
+
+.tran 0.1n 10n      ; Transient analysis (time-domain sim)
+.plot tran v(in) v(out)
+.end
+```
+
+---
+
+### 🔹 Key points
+
+* It’s called a “deck” because originally, engineers punched these instructions onto **cards (decks of punch cards)** for simulation.
+* Each line is either a **component**, a **control statement**, or a **comment**.
+* The **`.end`** statement finishes the deck.
+
+---
+
+✅ In short:
+A **SPICE deck** = the **netlist + models + simulation setup** in a text file that tells SPICE how to simulate your circuit.
+
+<img width="447" height="500" alt="image" src="https://github.com/user-attachments/assets/d44a8da6-0bec-48c1-b3df-76ed0748b8aa" />
+
+Next we will write down the Component Vlaues, keeping W/L for both NMOS and PMOS same.
+<img width="462" height="510" alt="image" src="https://github.com/user-attachments/assets/09995552-7cd3-42ce-8e1e-5b2ba6199e6c" />
+<img width="602" height="481" alt="image" src="https://github.com/user-attachments/assets/cd47210d-1403-473b-ba65-b479870d01cb" />
+as marked these are usually multiples.
+<img width="1272" height="592" alt="image" src="https://github.com/user-attachments/assets/3d27243d-cf85-4c6f-b05d-aa60b077f9c0" />
+after this name nodes.
+Name the nodes In model file we will mention like, 2.5V input lies between Vin and 0, similarly Vdd lies between vdd and 0.
+Now let us write the SPICE deck:
+<img width="1288" height="587" alt="image" src="https://github.com/user-attachments/assets/536ff9b8-2193-4e93-b988-a7e46e1cbe18" />
+
+## L2 SPICE simulation for CMOS inverter
+We know for Mosfet the syntax is DGSS(Drain gate source and substrate)
+<img width="1275" height="607" alt="image" src="https://github.com/user-attachments/assets/b6422313-b0a6-49a1-b786-250dfd95494c" />
+<img width="1276" height="648" alt="image" src="https://github.com/user-attachments/assets/d78affa8-43d4-4f22-9d7d-80562c43179e" />
+<img width="1287" height="603" alt="image" src="https://github.com/user-attachments/assets/c32d611e-7a2a-4e06-bda7-2ea2d666ffe6" />
+<img width="1273" height="647" alt="image" src="https://github.com/user-attachments/assets/a914626a-b3d1-477f-a369-4391609d0234" />
+Next comes the Simulation Commands
+Here we will be sweeping the gate input voltage from 0 to 2.5V with steps of 0.05. We need to find the VTC, for this only we will be sweeping the input voltage and measuring the output voltage.
+Final step is to describe the Model files, all the information about the technological parameteres is given inside the model files.
+<img width="1247" height="638" alt="image" src="https://github.com/user-attachments/assets/6493fea3-3ec2-43a4-8ec5-82a0481e4f7d" />
+Perfect 👌 you’ve shared a **SPICE deck** example of a **CMOS inverter**. Let’s carefully break down what each section and file line means:
+
+---
+
+## 🔹 SPICE Deck Breakdown
+
+### 1. **Model Descriptions**
+
+```spice
+*** MODEL Descriptions ***
+```
+
+* Tells SPICE where to find the **transistor models** (e.g., NMOS, PMOS).
+* These models contain physics-based parameters (mobility, threshold voltage, oxide thickness, etc.).
+* In this case, they’re included from an external file:
+
+  ```spice
+  .LIB "tsmc_025um_model.mod" CMOS_MODELS
+  ```
+
+  → This file (`tsmc_025um_model.mod`) contains the technology data for 0.25µm CMOS transistors.
+
+---
+
+### 2. **Netlist Description**
+
+This section defines the circuit connections (which node connects to which).
+
+```spice
+M1 out in vdd vdd pmos W=0.375u L=0.25u
+M2 out in 0   0   nmos W=0.375u L=0.25u
+cload out 0 10f
+```
+
+* **M1** = PMOS transistor
+
+  * Drain = `out`
+  * Gate = `in`
+  * Source = `vdd`
+  * Bulk = `vdd`
+  * Type = `pmos`, Width = `0.375µm`, Length = `0.25µm`
+
+* **M2** = NMOS transistor
+
+  * Drain = `out`
+  * Gate = `in`
+  * Source = `0` (ground, Vss)
+  * Bulk = `0` (ground)
+  * Type = `nmos`, same W/L ratio
+
+* **Cload** = capacitor (10 femtofarads)
+
+  * Connected between output (`out`) and ground.
+  * Represents load capacitance at inverter output.
+
+So, this builds the CMOS inverter: PMOS pull-up, NMOS pull-down, and load capacitor.
+
+---
+
+### 3. **Voltage Sources**
+
+```spice
+Vdd vdd 0 2.5
+Vin in 0 2.5
+```
+
+* **Vdd** = Power supply (2.5 V between node `vdd` and ground).
+* **Vin** = Input voltage source (applied at node `in`).
+
+Later, simulations sweep this input.
+
+---
+
+### 4. **Simulation Commands**
+
+```spice
+.op
+.dc Vin 0 2.5 0.05
+```
+
+* **`.op`** = Operating point analysis (gives DC bias values at nodes).
+* **`.dc Vin 0 2.5 0.05`** = Sweeps input `Vin` from 0 V to 2.5 V in 0.05 V steps.
+  → This generates the **Voltage Transfer Characteristic (VTC)** of the inverter.
+
+---
+
+### 5. **Include Model File**
+
+```spice
+.include tsmc_025um_model.mod
+```
+
+or
+
+```spice
+.LIB "tsmc_025um_model.mod" CMOS_MODELS
+```
+
+* This line loads the **technology file** (`tsmc_025um_model.mod`).
+* It defines the electrical behavior of the NMOS and PMOS used.
+* Without it, SPICE won’t know the transistor parameters.
+
+---
+
+### 6. **End of File**
+
+```spice
+.end
+```
+
+* Marks the end of the SPICE deck.
+
+---
+
+## 🔹 Corresponding Circuit Diagram (Right Side)
+
+* The schematic matches the netlist:
+
+  * PMOS on top (M1).
+  * NMOS on bottom (M2).
+  * Input connected to both gates.
+  * Output at node `out`.
+  * Capacitor at the output.
+  * Power supply Vdd = 2.5V.
+
+---
+
+✅ **Summary**:
+This SPICE deck describes a **CMOS inverter** with W/L = 0.375µm/0.25µm, powered at 2.5V, simulated for DC transfer characteristics. The `.mod` file provides the technology parameters for realistic behavior.
+Now we will do the SPICE simulation for Wn=Wp=0.375u, Ln=Lp=0.25u, Wn/ln=Wp/Lp=1.5. Below is the VTC we get for the above netlist.
+<img width="962" height="712" alt="image" src="https://github.com/user-attachments/assets/aa285a44-8a1e-497b-826d-1fcad3487083" />
+<img width="782" height="307" alt="image" src="https://github.com/user-attachments/assets/70d0b736-5b7c-45da-8d5e-334e47e505d1" />
+<img width="795" height="622" alt="image" src="https://github.com/user-attachments/assets/a7a5524d-0e36-4d55-98af-b7188fc4127c" />
+Next we will get the VTC for Wn= 0.375u, Wp= 0.9375u, Ln,p=0.25u; Wn/Ln=1.5, Wp/Lp=2.5 (PMOS width is 2.5 times more than NMOS)
+<img width="912" height="705" alt="image" src="https://github.com/user-attachments/assets/ba2c7192-97a0-4534-8a4f-06fee2167e5d" />
+If we observe the previous graph is left shifted slightly. This happens because NMOS is more stronger than PMOS in previous graph.
+
+## L3 Labs Sky130 SPICE simulation for CMOS
+We now get the VTC characteristics
+<img width="1851" height="1023" alt="image" src="https://github.com/user-attachments/assets/6a8afe75-f775-43e3-b415-0dfd6dd12d7a" />
+<img width="1827" height="301" alt="image" src="https://github.com/user-attachments/assets/1820c271-c52f-4a72-a5b4-3905a88a1896" />
+<img width="1232" height="932" alt="image" src="https://github.com/user-attachments/assets/e961f748-10ef-4267-84b3-f6743bab27df" />
+<img width="1711" height="872" alt="image" src="https://github.com/user-attachments/assets/6a967866-f658-41af-be0a-efd814bb87a2" />
+<img width="1698" height="872" alt="image" src="https://github.com/user-attachments/assets/0fb6edd0-189c-4960-a411-12e96d571e82" />
+
+We will now see the transient analysis:
+For that we will go inside the tansient SPICE file for day3
