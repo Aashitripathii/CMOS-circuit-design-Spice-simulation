@@ -832,3 +832,9 @@ When Vin = 1.5V, 0<Vout<0.5V; NMOS is Linear region and PMOS is in Saturation re
 When Vin = 2V, Vout = 0V; NMOS is in linear region and PMOS is Cut Off
 
 <img width="987" height="526" alt="image" src="https://github.com/user-attachments/assets/b9be4f8c-4223-4b2e-87a5-ba2f5afe8ba4" />
+
+# Day 3 - CMOS Switching threshold and dynamic simulations
+
+## Voltage transfer characteristics – SPICE simulations
+### L1 SPICE deck creation for CMOS inverter
+
