@@ -705,3 +705,35 @@ It shows linear behaviour.
 to get the coordinate at specific point click on graph left click. 
 
 ## L5 SPICE Lab with sky130 models
+
+same as day 4
+
+# Day 2 - Velocity saturation and basics of CMOS inverter VTC
+## SPICE simulation for lower nodes and velocity saturation effect
+## L1 SPICE simulation for lower nodes
+
+<img width="1368" height="713" alt="image" src="https://github.com/user-attachments/assets/1a9c89c6-0d0a-4e05-9b53-38d386246598" />
+Read notes (EDC).
+<img width="1432" height="767" alt="image" src="https://github.com/user-attachments/assets/68e9708b-bcd7-48d5-8704-33fa1fb796f4" />
+
+## L2 Drain current vs gate voltage for long and short channel device
+
+<img width="1397" height="713" alt="image" src="https://github.com/user-attachments/assets/2a66e8b6-bbca-4a2f-b282-3072acd32030" />
+<img width="1391" height="727" alt="image" src="https://github.com/user-attachments/assets/fd81a87b-43f9-4bc2-a510-86eb5634eb2f" />
+<img width="1407" height="717" alt="image" src="https://github.com/user-attachments/assets/7b7b0852-5bea-401d-8657-86faf85c0fae" />
+
+## L3 Velocity saturation at lower and higher electric fields
+<img width="932" height="458" alt="image" src="https://github.com/user-attachments/assets/e92d8840-1a8d-447d-926a-ba242bb37cd3" />
+FOR short channel effect.
+<img width="952" height="436" alt="image" src="https://github.com/user-attachments/assets/d917a085-36bc-4e76-9725-b77a37d371bb" />
+
+<img width="1027" height="472" alt="image" src="https://github.com/user-attachments/assets/89f61828-3277-4a4f-a8ad-7b34be3bd5df" />
+<img width="765" height="486" alt="image" src="https://github.com/user-attachments/assets/87782a66-f178-47c8-969e-0eeeddffc9fb" />
+
+<img width="957" height="501" alt="image" src="https://github.com/user-attachments/assets/c2734726-20a3-403e-bfb0-8ff52b5b6adb" />
+
+## L4 Velocity saturation drain current model
+
+<img width="1067" height="660" alt="image" src="https://github.com/user-attachments/assets/61a2beb5-9194-4566-9460-19c0033e045d" />
+
+<img width="958" height="560" alt="image" src="https://github.com/user-attachments/assets/c57fde23-075f-43bc-b25c-2094ad8c7ce1" />
