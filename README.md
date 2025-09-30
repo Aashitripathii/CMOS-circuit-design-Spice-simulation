@@ -1129,3 +1129,7 @@ When (W/L)p = 2(W/L)n, we see that RISE-FALL delay are approximately equal, if w
 
 This is a typical characteristic of Clock Inverter/buffer where we want the rise delay and fall delay to be equal.
 <img width="983" height="577" alt="image" src="https://github.com/user-attachments/assets/7028c919-636d-4fea-bc05-b0a4e0d3b1a3" />
+
+# Day 4 - CMOS Noise Margin robustness evaluation
+## Static behavior evaluation – CMOS inverter robustness – Noise margin
+### L1 Introduction to noise margin
