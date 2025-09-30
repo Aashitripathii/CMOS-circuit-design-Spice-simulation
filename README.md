@@ -1098,3 +1098,34 @@ We will now see the behaviour of CMOS for below difference in W/L ratios of PMOS
 
 <img width="347" height="285" alt="image" src="https://github.com/user-attachments/assets/7c95043f-08be-4cff-8d62-656e365ba9b1" />
 
+<img width="1208" height="646" alt="image" src="https://github.com/user-attachments/assets/f3a697ac-9114-4056-a676-a6656013e926" />
+
+## L4 Static and dynamic simulation of CMOS inverter
+
+<img width="1190" height="695" alt="image" src="https://github.com/user-attachments/assets/bc559012-15a2-439a-ac2a-a01f77b234f2" />
+
+## L5 Static and dynamic simulation of CMOS inverter with increased PMOS width
+
+We will be doing the SPICE simulations for increased width of PMOS transistors and compare the results.
+
+(W/L)p = 2(W/L)n
+<img width="986" height="417" alt="image" src="https://github.com/user-attachments/assets/411dcb9e-7e5d-439a-9e48-c3cd2cb4b611" />
+We can see that the Vm is now increased as the PMOS has become more stronger and it needs more current to charge the output load capacitor.
+(W/L)p = 3(W/L)n
+<img width="968" height="417" alt="image" src="https://github.com/user-attachments/assets/e411296e-7907-442a-8e14-e00c5671b905" />
+<img width="988" height="415" alt="image" src="https://github.com/user-attachments/assets/406cc2dd-515d-4cb4-9302-aa5a0a5c5fe2" />
+<img width="996" height="427" alt="image" src="https://github.com/user-attachments/assets/ef4cc22c-1c6f-419e-9c15-0da81846a4c7" />
+Note: Rise delay decreases with increase in PMOS width, this shows the time required to charge the output capacitor decreases significantly this is because we have a bigger area.
+
+## L6 Applications of CMOS inverter in clock network and STA
+
+<img width="836" height="287" alt="image" src="https://github.com/user-attachments/assets/b2e3bfa5-2acf-4cc3-9e39-9be570001207" />
+
+There are some conclusions we draw from this experiment:
+
+During fabrication, there can be slight variation in sizes of PMOS and NMOS from the required one, but the robustness of CMOS inverter is such that, there is not much difference in the Vm with change in sizes.
+
+When (W/L)p = 2(W/L)n, we see that RISE-FALL delay are approximately equal, if we simulate then we can get the ratio factor such that the Rise delay and fall delay are equal to each other. This shows "Symmetry" of CMOS inverter.
+
+This is a typical characteristic of Clock Inverter/buffer where we want the rise delay and fall delay to be equal.
+<img width="983" height="577" alt="image" src="https://github.com/user-attachments/assets/7028c919-636d-4fea-bc05-b0a4e0d3b1a3" />
