@@ -1317,3 +1317,4 @@ x= Vil, Y= Voh
 ## Static behavior evaluation – CMOS inverter robustness – Power supply variation
 
 ### L1 Smart SPICE simulation for power supply variations
+
