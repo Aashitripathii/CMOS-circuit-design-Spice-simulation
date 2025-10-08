@@ -1318,3 +1318,38 @@ x= Vil, Y= Voh
 
 ### L1 Smart SPICE simulation for power supply variations
 
+While evaluating the robustness of CMOS inverter another factor is Power Supply Scaling. On reducing the gate length, the operating power is also reduced. On power scaling the Cmos characteristics should not change.
+
+We will check by simulation, taking two cases.
+<img width="906" height="738" alt="image" src="https://github.com/user-attachments/assets/934d6d5f-1cbf-4e8a-b557-f28f0bdc196d" />
+<img width="891" height="552" alt="image" src="https://github.com/user-attachments/assets/b6bc2e39-4da3-4565-bbb2-a7f2d390ee9b" />
+We will now plot the VTC charactersitics for Vdd= 2.5V, 2V, 1.5V, 1V, 0.5V;
+<img width="910" height="698" alt="image" src="https://github.com/user-attachments/assets/a91f35e2-d214-4de5-a2ea-465bacba6208" />
+
+### Sky130 Supply variation Labs
+
+We will calculate the supply variation.
+<img width="873" height="525" alt="image" src="https://github.com/user-attachments/assets/a957540e-fc4d-4bb5-8e8a-3661bd0650e6" />
+<img width="876" height="452" alt="image" src="https://github.com/user-attachments/assets/231c31c1-3219-43e1-9b67-c3c8250a1828" />
+The initial supply voltage is 1.8V and we are reducing it with the step of 0.2V, so there will be 6 iterations.
+<img width="966" height="490" alt="image" src="https://github.com/user-attachments/assets/eaf727a3-7557-4511-91a7-04068a08cc13" />
+We will calculte the Gain
+
+### Static behaviour evaluation-CMOS inverter robustness-Device variation
+
+We will see the sources of variation of VTC characteristics in a CMOS inverter.
+First is Etching Process
+If we see a single inverter layout, we will see the length of gate, the width(common area between polysilicon and diffusion). Due to etching process there can be a variation in length and width of CMOS.
+Considering the inverter chain, the variation can differ with different inverter.
+
+<img width="1002" height="476" alt="image" src="https://github.com/user-attachments/assets/90202b96-e861-492b-b5f9-be66e3064d62" />
+<img width="975" height="501" alt="image" src="https://github.com/user-attachments/assets/d0fe4962-c260-4ddc-8328-dfa11dc34749" />
+<img width="956" height="547" alt="image" src="https://github.com/user-attachments/assets/61c952fa-0dc1-46e7-8869-81b73a08bf6a" />
+The variation is more at the edges or sides than at the center.
+
+<img width="992" height="472" alt="image" src="https://github.com/user-attachments/assets/270b58d2-3ccf-4284-a39f-6628f2f9c649" />
+Therefore the variation in L and W can change the drain current of CMOS inverter.
+<img width="943" height="542" alt="image" src="https://github.com/user-attachments/assets/e3a73cbd-65a4-41ea-a450-c62363944ca3" />
+
+### L2 Sources of variation - Oxide thickness
+
