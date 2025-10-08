@@ -1351,5 +1351,12 @@ The variation is more at the edges or sides than at the center.
 Therefore the variation in L and W can change the drain current of CMOS inverter.
 <img width="943" height="542" alt="image" src="https://github.com/user-attachments/assets/e3a73cbd-65a4-41ea-a450-c62363944ca3" />
 
-### L2 Sources of variation - Oxide thickness
+### Sky130 device variations labs
+We will now do the SPICE simulations for the device variations
+<img width="882" height="528" alt="image" src="https://github.com/user-attachments/assets/164eada3-17c2-4568-bc4e-7f5a196aa4ca" />
+<img width="730" height="408" alt="image" src="https://github.com/user-attachments/assets/d05327cd-95b1-47a5-8c26-6b949d1b53dd" />
+We can see that the width of PMOS is quite large than that of NMOS. SO it is clearly strong PMOS and weak NMOS case. The Vm will be right shifted.
+<img width="712" height="489" alt="image" src="https://github.com/user-attachments/assets/4e8221dc-4616-4845-be09-b5e86864c855" />
+<img width="1003" height="485" alt="image" src="https://github.com/user-attachments/assets/04065b2d-3ffe-41ea-8837-06067698adae" />
 
+## Thank you!!
